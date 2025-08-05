@@ -1,0 +1,15 @@
+import React, { ReactNode } from 'react';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+const CustomLayout = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className='flex flex-col min-h-screen'>
+      <Navbar />
+      <main className='container mx-auto px-4 lg:px-10 grow'>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
+export default CustomLayout;
