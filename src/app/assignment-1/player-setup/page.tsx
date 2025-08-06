@@ -1,6 +1,8 @@
 'use client';
 
 import PageTitle from '@/components/ui/PageTitle';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { setPlayers, resetGame } from '@/lib/redux/features/game/gameSlice';
 import { useRouter } from 'next/navigation';
 import React, { FocusEvent, FormEvent, useState } from 'react';
 
@@ -11,7 +13,8 @@ interface PlayerProps {
 
 const PlayerSetupPage = () => {
   const router = useRouter();
-  const [players, setPlayers] = useState<PlayerProps>({
+  const dispatch = useAppDispatch();
+  const [players, setPlayersLocal] = useState<PlayerProps>({
     player1: '',
     player2: '',
   });
@@ -20,20 +23,39 @@ const PlayerSetupPage = () => {
     const { name, value } = e.target;
     const newPlayer = { ...players };
     newPlayer[name as keyof typeof players] = value;
-    setPlayers(newPlayer);
+    setPlayersLocal(newPlayer);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Validate both names are provided
+    if (!players.player1.trim() || !players.player2.trim()) {
+      alert('Both player names are required!');
+      return;
+    }
+
+    // Reset game state and set new players
+    dispatch(resetGame());
+    dispatch(setPlayers(players));
+    
+    // Also save to sessionStorage for backup
     sessionStorage.setItem('players', JSON.stringify(players));
     router.push('/assignment-1/game');
   };
+
+  const isFormValid = players.player1.trim() && players.player2.trim();
 
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
       <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
         <PageTitle className='text-center'>Tic-Tac-Toe: Player Setup</PageTitle>
+        
+        <div className='text-center mb-6 text-gray-600'>
+          <p>Enter both players&apos; names to start the game</p>
+          <p className='text-sm'>First to win 3 rounds or complete 5 rounds wins!</p>
+        </div>
+        
         <form
           onSubmit={handleSubmit}
           className=' text-black grid md:grid-cols-2 gap-5 mt-6 lg:mt-10'
@@ -75,7 +97,12 @@ const PlayerSetupPage = () => {
 
           <button
             type='submit'
-            className='md:col-span-2 mt-2 md:mt-6 mx-auto bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-md'
+            disabled={!isFormValid}
+            className={`md:col-span-2 mt-2 md:mt-6 mx-auto text-white text-sm px-4 py-2 rounded-md ${
+              isFormValid 
+                ? 'bg-blue-500 hover:bg-blue-600' 
+                : 'bg-gray-400 cursor-not-allowed'
+            }`}
           >
             Start Game
           </button>

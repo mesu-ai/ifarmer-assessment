@@ -3,42 +3,66 @@ import Link from 'next/link';
 import React from 'react';
 
 const TicTacToe = () => {
-
-
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
       <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
-        <PageTitle className='text-center'>Welcome to the Tic-Tac-Toe Game!</PageTitle>
+        <PageTitle className='text-center'>🎯 Tic-Tac-Toe Championship</PageTitle>
+        
         <div className='text-center'>
-          <p className='mt-2'>Please set up players before starting the game.</p>
-          <div className='space-x-5 mt-5'>
-            <Link
-            href='/assignment-1/player-setup'
-            className='mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded'
-          >
-            Set Up Players
-          </Link>
-          <Link
-            href='/assignment-1/game'
-            className='mt-6 inline-block bg-green-500 text-white px-4 py-2 rounded'
-          >
-            Start Game
-          </Link>
-          <Link
-            href='/assignment-1/leaderboard'
-            className='mt-6 inline-block bg-yellow-500 text-white px-4 py-2 rounded'
-          >
-            View Leaderboard
-          </Link>
-          <Link
-            href='/'
-            className='mt-6 inline-block bg-red-500 text-white px-4 py-2 rounded'
-          >
-            Back to Home
-          </Link>
-
-          </div>
+          <p className='mt-4 text-lg text-gray-700'>
+            Experience the ultimate Tic-Tac-Toe battle with our enhanced scoring system!
+          </p>
           
+          {/* Game Rules */}
+          <div className='mt-8 bg-white p-6 rounded-lg shadow-sm text-left'>
+            <h3 className='text-xl font-semibold mb-4 text-center'>🕹️ Game Rules</h3>
+            <ul className='space-y-2 text-gray-700'>
+              <li>• <strong>Best of 5 rounds</strong> - First to win 3 rounds is the champion!</li>
+              <li>• <strong>Scoring System:</strong></li>
+              <li className='ml-6'>- Win a round: <span className='text-green-600 font-bold'>+2 points</span></li>
+              <li className='ml-6'>- Lose a round: <span className='text-blue-600 font-bold'>+1 point</span></li>
+              <li className='ml-6'>- Draw: <span className='text-gray-600 font-bold'>0 points</span></li>
+              <li>• Game ends after 5 rounds or when a player gets an unbeatable lead</li>
+              <li>• Session-based leaderboard tracks all your games!</li>
+            </ul>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
+            <Link
+              href='/assignment-1/player-setup'
+              className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
+            >
+              <div className='text-2xl mb-2'>👥</div>
+              <div className='text-sm font-medium'>Set Up Players</div>
+            </Link>
+            <Link
+              href='/assignment-1/game'
+              className='bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
+            >
+              <div className='text-2xl mb-2'>🎮</div>
+              <div className='text-sm font-medium'>Start Game</div>
+            </Link>
+            <Link
+              href='/assignment-1/leaderboard'
+              className='bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
+            >
+              <div className='text-2xl mb-2'>🏆</div>
+              <div className='text-sm font-medium'>Leaderboard</div>
+            </Link>
+            <Link
+              href='/'
+              className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
+            >
+              <div className='text-2xl mb-2'>🏠</div>
+              <div className='text-sm font-medium'>Back to Home</div>
+            </Link>
+          </div>
+
+          {/* Quick Start Guide */}
+          <div className='mt-8 text-sm text-gray-600'>
+            <p><strong>Quick Start:</strong> Set up players → Start game → Play 5 rounds → View results → Check leaderboard</p>
+          </div>
         </div>
       </div>
     </div>
