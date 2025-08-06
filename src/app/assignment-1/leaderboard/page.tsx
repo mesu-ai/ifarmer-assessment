@@ -83,7 +83,7 @@ const LeaderboardPage = () => {
 
   return (
     <div className='flex items-center justify-center min-h-[80vh] bg-white text-black'>
-      <div className='bg-slate-100 rounded-md p-10 max-w-6xl w-full'>
+      <div className='bg-slate-50 rounded-md p-10 max-w-6xl w-full'>
         <PageTitle>Leaderboard</PageTitle>
 
         <div className='mt-8'>

@@ -44,6 +44,7 @@ const TicTacToe = () => {
                 lead
               </li>
               <li>Session-based leaderboard tracks all your games!</li>
+              <li>To start the game, you&apos;ll need to <strong>set up your players first</strong></li>
             </ul>
           </div>
 

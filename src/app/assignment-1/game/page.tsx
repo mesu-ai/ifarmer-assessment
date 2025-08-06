@@ -46,7 +46,7 @@ const GamePage = () => {
       if (savedPlayers) {
         dispatch(setPlayersAction(JSON.parse(savedPlayers)));
       } else {
-        router.push('/assignment-1');
+        router.push('/assignment-1/player-setup');
       }
     }
   }, [router, players, dispatch]);

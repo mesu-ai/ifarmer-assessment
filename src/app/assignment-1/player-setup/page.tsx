@@ -50,11 +50,11 @@ const PlayerSetupPage = () => {
 
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
-      <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
+      <div className='bg-slate-50 py-20 px-10 max-w-4xl w-full rounded-lg shadow-sm'>
         <PageTitle className='text-center'>Tic-Tac-Toe: Player Setup</PageTitle>
         
         <div className='text-center mb-6 text-gray-600'>
-          <p>Enter both players&apos; names to start the game</p>
+          {/* <p>Enter both player&apos;s names to start the game</p> */}
           <p className='text-sm'>First to win 3 rounds or complete 5 rounds wins!</p>
         </div>
         
@@ -106,7 +106,7 @@ const PlayerSetupPage = () => {
                 : 'bg-gray-400 cursor-not-allowed'
             }`}
           >
-            Start Game
+            Start Game Now →
           </button>
         </form>
       </div>
