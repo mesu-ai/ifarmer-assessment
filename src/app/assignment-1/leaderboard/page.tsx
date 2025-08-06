@@ -5,7 +5,7 @@ const page = () => {
     <div>
       <h1 className="text-2xl font-bold mb-8">Leaderboard</h1>
       {/* Additional content can be added here */}
-      
+
     </div>
   );
 };
