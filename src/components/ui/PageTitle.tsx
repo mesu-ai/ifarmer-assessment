@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const PageTitle = ({ children }: { children: React.ReactNode } )=> {
+interface PageTitleProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const PageTitle: FC<PageTitleProps> = ({ children, className = '' }) => {
   return (
-    <h1 className='text-center text-black font-semibold text-lg xl:text-2xl'>{children}</h1>
+    <h1 className={`text-black font-semibold text-lg xl:text-2xl ${className}`}>
+      {children}
+    </h1>
   );
 };
 

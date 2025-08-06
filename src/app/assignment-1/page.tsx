@@ -1,73 +1,48 @@
-'use client';
-
 import PageTitle from '@/components/ui/PageTitle';
-import { useRouter } from 'next/navigation';
-import React, { FocusEvent, FormEvent, useState } from 'react';
+import Link from 'next/link';
+import React from 'react';
 
-interface PlayerProps {
-  player1: string;
-  player2: string;
-}
+const TicTacToe = () => {
 
-const PlayerSetupPage = () => {
-  const router = useRouter();
-  const [players, setPlayers] = useState<PlayerProps>({
-    player1: '',
-    player2: '',
-  });
-
-
-  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const newPlayer = { ...players };
-    newPlayer[name as keyof typeof players] = value;
-    setPlayers(newPlayer);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    sessionStorage.setItem('players', JSON.stringify(players));
-    router.push('/assignment-1/game');
-  };
 
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
       <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
-        <PageTitle>Tic-Tac-Toe: Player Setup</PageTitle>
-        <form
-          onSubmit={handleSubmit}
-          className=' text-black grid md:grid-cols-2 gap-5 mt-6 lg:mt-10'
-        >
-          <input
-            type='text'
-            name='player1'
-            id='player1'
-            className='outline-none border border-gray-400 rounded-md px-2 py-1 focus:border-blue-400'
-            placeholder='Player 1'
-            onBlur={handleBlur}
-            required
-          />
-          <input
-            type='text'
-            name='player2'
-            id='player2'
-            className='outline-none border border-gray-400 rounded-md px-2 py-1 focus:border-blue-400'
-            placeholder='Player 1'
-            onBlur={handleBlur}
-            required
-          />
-
-          <button
-            type='submit'
-            className='md:col-span-2 mt-2 md:mt-6 mx-auto bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-md'
+        <PageTitle className='text-center'>Welcome to the Tic-Tac-Toe Game!</PageTitle>
+        <div className='text-center'>
+          <p className='mt-2'>Please set up players before starting the game.</p>
+          <div className='space-x-5 mt-5'>
+            <Link
+            href='/assignment-1/player-setup'
+            className='mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded'
+          >
+            Set Up Players
+          </Link>
+          <Link
+            href='/assignment-1/game'
+            className='mt-6 inline-block bg-green-500 text-white px-4 py-2 rounded'
           >
             Start Game
-          </button>
-        </form>
+          </Link>
+          <Link
+            href='/assignment-1/leaderboard'
+            className='mt-6 inline-block bg-yellow-500 text-white px-4 py-2 rounded'
+          >
+            View Leaderboard
+          </Link>
+          <Link
+            href='/'
+            className='mt-6 inline-block bg-red-500 text-white px-4 py-2 rounded'
+          >
+            Back to Home
+          </Link>
+
+          </div>
+          
+        </div>
       </div>
     </div>
   );
 };
 
-export default PlayerSetupPage;
+export default TicTacToe;
