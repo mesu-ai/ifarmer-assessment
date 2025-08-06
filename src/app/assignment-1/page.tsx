@@ -5,25 +5,45 @@ import React from 'react';
 const TicTacToe = () => {
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
-      <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
-        <PageTitle className='text-center'>🎯 Tic-Tac-Toe Championship</PageTitle>
-        
+      <div className='bg-slate-50 rounded-md py-20 px-10 max-w-4xl w-full'>
+        <PageTitle className='text-center'>Tic-Tac-Toe Game</PageTitle>
+
         <div className='text-center'>
-          <p className='mt-4 text-lg text-gray-700'>
-            Experience the ultimate Tic-Tac-Toe battle with our enhanced scoring system!
+          <p className='mt-4 text-sm sm:text-base lg:text-lg text-gray-700'>
+            Experience the ultimate Tic-Tac-Toe battle with our enhanced scoring
+            system!
           </p>
-          
+
           {/* Game Rules */}
           <div className='mt-8 bg-white p-6 rounded-lg shadow-sm text-left'>
-            <h3 className='text-xl font-semibold mb-4 text-center'>🕹️ Game Rules</h3>
-            <ul className='space-y-2 text-gray-700'>
-              <li>• <strong>Best of 5 rounds</strong> - First to win 3 rounds is the champion!</li>
-              <li>• <strong>Scoring System:</strong></li>
-              <li className='ml-6'>- Win a round: <span className='text-green-600 font-bold'>+2 points</span></li>
-              <li className='ml-6'>- Lose a round: <span className='text-blue-600 font-bold'>+1 point</span></li>
-              <li className='ml-6'>- Draw: <span className='text-gray-600 font-bold'>0 points</span></li>
-              <li>• Game ends after 5 rounds or when a player gets an unbeatable lead</li>
-              <li>• Session-based leaderboard tracks all your games!</li>
+            <h3 className='text-lg sm:text-xl font-semibold mb-4 text-center'>
+              🕹️ Game Rules
+            </h3>
+            <ul className='space-y-2 text-gray-700 list-disc list-inside'>
+              <li>
+                <strong>Best of 5 rounds</strong> - First to win 3 rounds is the
+                champion!
+              </li>
+              <li>
+                <strong>Scoring System:</strong>
+              </li>
+              <li className='ml-6 list-none'>
+                - Win a round:{' '}
+                <span className='text-green-600 font-bold'>+2 points</span>
+              </li>
+              <li className='ml-6 list-none'>
+                - Lose a round:{' '}
+                <span className='text-blue-600 font-bold'>+1 point</span>
+              </li>
+              <li className='ml-6 list-none'>
+                - Draw:{' '}
+                <span className='text-gray-600 font-bold'>0 points</span>
+              </li>
+              <li>
+                Game ends after 5 rounds or when a player gets an unbeatable
+                lead
+              </li>
+              <li>Session-based leaderboard tracks all your games!</li>
             </ul>
           </div>
 
@@ -61,7 +81,9 @@ const TicTacToe = () => {
 
           {/* Quick Start Guide */}
           <div className='mt-8 text-sm text-gray-600'>
-            <p><strong>Quick Start:</strong> Set up players → Start game → Play 5 rounds → View results → Check leaderboard</p>
+            <p>
+              <strong>Quick Start:</strong> Set up players → Start game → Play 5rounds → View results → Check leaderboard
+            </p>
           </div>
         </div>
       </div>

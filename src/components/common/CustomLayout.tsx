@@ -6,7 +6,7 @@ const CustomLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Navbar />
-      <main className='container mx-auto px-4 lg:px-10 grow'>{children}</main>
+      <main className='container mx-auto px-4 lg:px-10 grow my-5'>{children}</main>
       <Footer />
     </div>
   );

@@ -46,6 +46,8 @@ const PlayerSetupPage = () => {
 
   const isFormValid = players.player1.trim() && players.player2.trim();
 
+  console.log({isFormValid});
+
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
       <div className='bg-slate-100 rounded-md py-20 px-10 max-w-4xl w-full'>
