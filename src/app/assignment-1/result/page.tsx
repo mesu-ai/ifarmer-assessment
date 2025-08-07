@@ -11,6 +11,8 @@ const ResultPage = () => {
   const dispatch = useAppDispatch();
   const { players, scores, roundWins, finalWinner, gameOver } = useAppSelector((state) => state.game);
 
+  console.log({players, scores, roundWins, finalWinner, gameOver})
+
   useEffect(() => {
     // If no game data or game not over, redirect
     if (!gameOver || !players.player1 || !players.player2) {
@@ -53,13 +55,12 @@ const ResultPage = () => {
   return (
     <div className='flex items-center justify-center min-h-[80vh] bg-white text-black'>
       <div className='bg-slate-50 rounded-md p-10 max-w-4xl w-full'>
-        <PageTitle>Game Results</PageTitle>
-
+        <h1 className='text-xl font-bold'>Tic-Tac-Toe - Your Result: </h1>
         <div className='mt-8 text-center'>
           {/* Final Winner */}
           <div className='mb-8'>
             <h2 className='text-3xl font-bold mb-4 text-green-600'>
-              🎉 {finalWinner === 'Tie' ? "It's a Tie!" : `${finalWinner} Wins!`}
+              {finalWinner === 'Tie' ? "It's a Tie!" : `${finalWinner} Wins!`}
             </h2>
           </div>
 
@@ -100,22 +101,25 @@ const ResultPage = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className='flex justify-center gap-4 mt-8'>
+          <div className='grid md:grid-cols-3 gap-4 mt-8 max-w-3xl mx-auto'>
             <button
+              type='button'
               onClick={playAgain}
-              className='bg-blue-500 text-white px-6 py-3 rounded-lg text-lg'
+              className='bg-blue-500 text-white px-6 py-3 rounded-lg md:text-lg'
             >
               Play Again
             </button>
             <button
+              type='button'
               onClick={saveToLeaderboard}
-              className='bg-green-500 text-white px-6 py-3 rounded-lg text-lg'
+              className='bg-green-500 text-white px-6 py-3 rounded-lg md:text-lg'
             >
               Save to Leaderboard
             </button>
             <button
+              type='button'
               onClick={() => router.push('/assignment-1')}
-              className='bg-gray-500 text-white px-6 py-3 rounded-lg text-lg'
+              className='bg-gray-500 text-white px-6 py-3 rounded-lg md:text-lg'
             >
               Back to Home
             </button>

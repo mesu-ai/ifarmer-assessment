@@ -39,10 +39,6 @@ const TicTacToe = () => {
                 - Draw:{' '}
                 <span className='text-gray-600 font-bold'>0 points</span>
               </li>
-              <li>
-                Game ends after 5 rounds or when a player gets an unbeatable
-                lead
-              </li>
               <li>Session-based leaderboard tracks all your games!</li>
               <li>To start the game, you&apos;ll need to <strong>set up your players first</strong></li>
             </ul>
@@ -54,29 +50,26 @@ const TicTacToe = () => {
               href='/assignment-1/player-setup'
               className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
             >
-              <div className='text-2xl mb-2'>👥</div>
-              <div className='text-sm font-medium'>Set Up Players</div>
+              Set Up Players
             </Link>
             <Link
               href='/assignment-1/game'
               className='bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
             >
-              <div className='text-2xl mb-2'>🎮</div>
-              <div className='text-sm font-medium'>Start Game</div>
+              Start Game
             </Link>
             <Link
               href='/assignment-1/leaderboard'
               className='bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
             >
-              <div className='text-2xl mb-2'>🏆</div>
-              <div className='text-sm font-medium'>Leaderboard</div>
+              
+              Leaderboard
             </Link>
             <Link
               href='/'
               className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
             >
-              <div className='text-2xl mb-2'>🏠</div>
-              <div className='text-sm font-medium'>Back to Home</div>
+             Back to Home
             </Link>
           </div>
 
