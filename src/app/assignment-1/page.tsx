@@ -1,8 +1,15 @@
+'use client';
+
+import LinkButton from '@/components/ui/LinkButton';
 import PageTitle from '@/components/ui/PageTitle';
-import Link from 'next/link';
+import { resetGame } from '@/lib/redux/features/game/gameSlice';
+import { useAppDispatch } from '@/lib/redux/hooks';
 import React from 'react';
 
 const TicTacToe = () => {
+
+  const dispatch = useAppDispatch();
+
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
       <div className='bg-slate-50 rounded-md py-20 px-10 max-w-4xl w-full'>
@@ -40,43 +47,46 @@ const TicTacToe = () => {
                 <span className='text-gray-600 font-bold'>0 points</span>
               </li>
               <li>Session-based leaderboard tracks all your games!</li>
-              <li>To start the game, you&apos;ll need to <strong>set up your players first</strong></li>
+              <li>
+                To start the game, you&apos;ll need to{' '}
+                <strong>set up your players first</strong>
+              </li>
             </ul>
           </div>
 
           {/* Navigation Buttons */}
           <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
-            <Link
+            <LinkButton
               href='/assignment-1/player-setup'
-              className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
-            >
-              Set Up Players
-            </Link>
-            <Link
+              name='Set Up Players'
+              className='bg-blue-500 hover:bg-blue-600 text-white'
+            />
+
+            <LinkButton
               href='/assignment-1/game'
-              className='bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
-            >
-              Start Game
-            </Link>
-            <Link
+              name='Start Game'
+              className='bg-green-500 hover:bg-green-600 text-white'
+              onClick={() => dispatch(resetGame())}
+            />
+
+            <LinkButton
               href='/assignment-1/leaderboard'
-              className='bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
-            >
-              
-              Leaderboard
-            </Link>
-            <Link
+              name='Leaderboard'
+              className='bg-yellow-500 hover:bg-yellow-600 text-white'
+            />
+
+            <LinkButton
               href='/'
-              className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-4 rounded-lg transition-colors text-center block'
-            >
-             Back to Home
-            </Link>
+              name='Back to Home'
+              className='bg-gray-500 hover:bg-gray-600 text-white'
+            />
           </div>
 
           {/* Quick Start Guide */}
           <div className='mt-8 text-sm text-gray-600'>
             <p>
-              <strong>Quick Start:</strong> Set up players → Start game → Play 5rounds → View results → Check leaderboard
+              <strong>Quick Start:</strong> Set up players → Start game → Play
+              5rounds → View results → Check leaderboard
             </p>
           </div>
         </div>

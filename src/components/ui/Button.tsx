@@ -1,9 +1,23 @@
-import React from 'react';
+import { ButtonProps } from '@/types/types';
+import React, { FC } from 'react';
 
-const Button = () => {
+const Button: FC<ButtonProps> = ({
+  type = 'button',
+  name,
+  onClick,
+  children,
+  className,
+  disabled = false,
+}) => {
   return (
-    <button className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>
-      Click Me
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-4 py-2 rounded-md font-medium text-base transition-colors hover:cursor-pointer disabled:cursor-not-allowed ${className}`}
+    >
+      {name}
+      {children}
     </button>
   );
 };

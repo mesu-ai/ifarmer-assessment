@@ -5,14 +5,9 @@ import { clearLeaderboard, loadLeaderboardFromStorage } from '@/lib/redux/featur
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-interface PlayerStats {
-  name: string;
-  totalScore: number;
-  gamesPlayed: number;
-  wins: number;
-  roundWins: number;
-}
+import { PlayerStats } from '@/types/types';
+import LinkButton from '@/components/ui/LinkButton';
+import Button from '@/components/ui/Button';
 
 const LeaderboardPage = () => {
   const router = useRouter();
@@ -20,7 +15,15 @@ const LeaderboardPage = () => {
   const { leaderboard } = useAppSelector((state) => state.game);
   const [playerStats, setPlayerStats] = useState<PlayerStats[]>([]);
 
-  useEffect(() => {
+  const handleClearLeaderboard = () => {
+    if (window.confirm('Are you sure you want to clear the leaderboard? This action cannot be undone.')) {
+      dispatch(clearLeaderboard());
+      sessionStorage.removeItem('leaderboard');
+      setPlayerStats([]);
+    }
+  };
+
+    useEffect(() => {
     // Load leaderboard from sessionStorage on component mount
     const savedLeaderboard = sessionStorage.getItem('leaderboard');
     if (savedLeaderboard) {
@@ -73,14 +76,6 @@ const LeaderboardPage = () => {
     setPlayerStats(sortedStats);
   }, [leaderboard]);
 
-  const handleClearLeaderboard = () => {
-    if (window.confirm('Are you sure you want to clear the leaderboard? This action cannot be undone.')) {
-      dispatch(clearLeaderboard());
-      sessionStorage.removeItem('leaderboard');
-      setPlayerStats([]);
-    }
-  };
-
   return (
     <div className='flex items-center justify-center min-h-[80vh] bg-white text-black'>
       <div className='bg-slate-50 rounded-md p-10 max-w-6xl w-full'>
@@ -90,12 +85,11 @@ const LeaderboardPage = () => {
           {playerStats.length === 0 ? (
             <div className='text-center py-8'>
               <p className='text-xl text-gray-600 mb-4'>No games played yet!</p>
-              <Link
+              <LinkButton
+                name='Start Your First Game'
                 href='/assignment-1/player-setup'
-                className='bg-green-600 text-white px-6 py-3 rounded-lg text-lg'
-              >
-                Start Your First Game
-              </Link>
+                className='bg-green-600 hover:bg-green-700 text-white'
+              />
             </div>
           ) : (
             <>
@@ -129,15 +123,26 @@ const LeaderboardPage = () => {
                   </thead>
                   <tbody className='bg-white divide-y divide-gray-200'>
                     {playerStats.map((player, index) => (
-                      <tr key={player.name} className={index === 0 ? 'bg-yellow-50' : ''}>
+                      <tr
+                        key={player.name}
+                        className={index === 0 ? 'bg-yellow-50' : ''}
+                      >
                         <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                          {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}
+                          {index === 0
+                            ? '🥇'
+                            : index === 1
+                            ? '🥈'
+                            : index === 2
+                            ? '🥉'
+                            : index + 1}
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                           {player.name}
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          <span className='font-bold text-green-600'>{player.totalScore}</span>
+                          <span className='font-bold text-green-600'>
+                            {player.totalScore}
+                          </span>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
                           {player.wins}
@@ -149,7 +154,11 @@ const LeaderboardPage = () => {
                           {player.roundWins}
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          {player.gamesPlayed > 0 ? `${Math.round((player.wins / player.gamesPlayed) * 100)}%` : '0%'}
+                          {player.gamesPlayed > 0
+                            ? `${Math.round(
+                                (player.wins / player.gamesPlayed) * 100
+                              )}%`
+                            : '0%'}
                         </td>
                       </tr>
                     ))}
@@ -161,28 +170,37 @@ const LeaderboardPage = () => {
               <div className='mt-8'>
                 <h3 className='text-xl font-semibold mb-4'>Recent Games</h3>
                 <div className='space-y-3 max-h-64 overflow-y-auto'>
-                  {leaderboard.slice(-10).reverse().map((game, index) => (
-                    <div key={index} className='bg-white p-4 rounded-lg shadow-sm border'>
-                      <div className='flex justify-between items-center'>
-                        <div>
-                          <p className='font-medium'>
-                            {game.players.player1} vs {game.players.player2}
-                          </p>
-                          <p className='text-sm text-gray-600'>
-                            Winner: {game.winner === 'Tie' ? 'Tie Game' : game.winner}
-                          </p>
-                        </div>
-                        <div className='text-right'>
-                          <p className='text-sm'>
-                            Scores: {game.scores.player1} - {game.scores.player2}
-                          </p>
-                          <p className='text-sm text-gray-600'>
-                            Round Wins: {game.roundWins.player1} - {game.roundWins.player2}
-                          </p>
+                  {leaderboard
+                    .slice(-10)
+                    .reverse()
+                    .map((game, index) => (
+                      <div
+                        key={index}
+                        className='bg-white p-4 rounded-lg shadow-sm border'
+                      >
+                        <div className='flex justify-between items-center'>
+                          <div>
+                            <p className='font-medium'>
+                              {game.players.player1} vs {game.players.player2}
+                            </p>
+                            <p className='text-sm text-gray-600'>
+                              Winner:{' '}
+                              {game.winner === 'Tie' ? 'Tie Game' : game.winner}
+                            </p>
+                          </div>
+                          <div className='text-right'>
+                            <p className='text-sm'>
+                              Scores: {game.scores.player1} -{' '}
+                              {game.scores.player2}
+                            </p>
+                            <p className='text-sm text-gray-600'>
+                              Round Wins: {game.roundWins.player1} -{' '}
+                              {game.roundWins.player2}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </>
@@ -190,26 +208,23 @@ const LeaderboardPage = () => {
 
           {/* Action Buttons */}
           <div className='grid md:grid-cols-3 gap-4 mt-8 max-w-3xl mx-auto'>
-            <button
-              onClick={() => router.push('/assignment-1/player-setup')}
-              className='bg-blue-500 text-white px-6 py-3 rounded-lg text-lg cursor-pointer'
-            >
-              New Game
-            </button>
+            <LinkButton
+              name='New Game'
+              href='/assignment-1/player-setup'
+              className='bg-blue-500 hover:bg-blue-600 text-white'
+            />
             {playerStats.length > 0 && (
-              <button
+              <Button
+                name='Clear Leaderboard'
                 onClick={handleClearLeaderboard}
-                className='bg-red-500 text-white px-6 py-3 rounded-lg text-lg cursor-pointer'
-              >
-                Clear Leaderboard
-              </button>
+                className='bg-red-500 hover:bg-red-600 text-white'
+              />
             )}
-            <button
-              onClick={() => router.push('/assignment-1')}
-              className='bg-gray-500 text-white px-6 py-3 rounded-lg text-lg cursor-pointer'
-            >
-              Back to Home
-            </button>
+            <LinkButton
+              name='Back to Home'
+              href='/assignment-1'
+              className='bg-gray-500 hover:bg-gray-600 text-white'
+            />
           </div>
         </div>
       </div>
