@@ -105,14 +105,11 @@ const GamePage = () => {
 
   return (
     <div className='flex items-center justify-center min-h-[80vh]'>
+      <h1 className='sr-only text-xl font-bold'>Tic Tac Toe Game</h1>
       <div className='bg-slate-50 p-10 max-w-4xl w-full rounded-lg shadow-sm'>
-        {/* <PageTitle>Tic-Tac-Toe</PageTitle> */}
-
         {gameOver ? (
           <div className='text-center mb-6'>
-            <h2 className='text-2xl font-bold mb-2 text-red-600'>
-              Game Over!
-            </h2>
+            <h2 className='text-2xl font-bold mb-2 text-red-600'>Game Over!</h2>
             <p className='text-xl mb-4'>
               {finalWinner === 'Tie'
                 ? "It's a tie!"
@@ -134,18 +131,18 @@ const GamePage = () => {
           </div>
         ) : (
           <div className='text-center'>
-            <h2 className='text-lg md:text-xl font-bold mb-4'>
+            <h2 className='text-lg md:text-xl font-bold mb-3 text-green-600'>
               Round {round} of 5
             </h2>
 
             {/* Players and Round Wins */}
-            <div className='mb-4'>
+            <div className='bg-white mb-4 border border-gray-400 rounded-lg px-5 py-1 max-w-sm mx-auto'>
               <p className='text-lg'>
-                <span className='text-orange-500 font-semibold'>
+                <span className='font-semibold'>
                   {players.player1}
                 </span>{' '}
                 (X) vs{' '}
-                <span className='text-orange-500 font-semibold'>
+                <span className='font-semibold'>
                   {players.player2}
                 </span>{' '}
                 (O)
@@ -157,7 +154,7 @@ const GamePage = () => {
             </div>
 
             {/* Current Turn Indicator */}
-            <div className='mb-4 text-lg font-medium text-blue-600'>
+            <div className='mb-4 text-base font-medium text-blue-600'>
               Current Turn: {xIsNext ? players.player1 : players.player2} (
               {xIsNext ? 'X' : 'O'})
             </div>
