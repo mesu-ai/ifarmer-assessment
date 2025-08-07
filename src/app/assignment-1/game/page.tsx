@@ -1,6 +1,5 @@
 'use client';
 
-import PageTitle from '@/components/ui/PageTitle';
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import {
   makeMove,
@@ -199,7 +198,7 @@ const GamePage = () => {
             <div className='mx-auto space-x-4'>
               <button
                 onClick={handleResetBoard}
-                className='bg-gray-500 text-white px-4 py-2 rounded cursor-pointer'
+                className='bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded cursor-pointer'
               >
                 Reset Board
               </button>
@@ -207,7 +206,7 @@ const GamePage = () => {
               {(calculateWinner(board) || !board.includes(null)) && (
                 <button
                   onClick={handleNextRound}
-                  className='bg-blue-500 text-white px-4 py-2 rounded cursor-pointer'
+                  className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer'
                 >
                   Next Round
                 </button>

@@ -22,7 +22,7 @@ const PlayerSetupPage = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
-    setPlayersLocal((prev) => ({ ...prev, [name]: value.trim() }));
+    setPlayersLocal((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -40,12 +40,17 @@ const PlayerSetupPage = () => {
       return;
     }
 
+    const trimmedPlayers = {
+      player1: players.player1.trim(),
+      player2: players.player2.trim(),
+    };
+
     // Reset game state and set new players
     dispatch(resetGame());
-    dispatch(setPlayers(players));
+    dispatch(setPlayers(trimmedPlayers));
 
     // Also save to sessionStorage for backup
-    sessionStorage.setItem('players', JSON.stringify(players));
+    sessionStorage.setItem('players', JSON.stringify(trimmedPlayers));
     router.push('/assignment-1/game');
   };
 

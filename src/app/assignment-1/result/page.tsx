@@ -1,6 +1,5 @@
 'use client';
 
-import PageTitle from '@/components/ui/PageTitle';
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import { addToLeaderboard, resetGame } from '@/lib/redux/features/game/gameSlice';
 import { useRouter } from 'next/navigation';
@@ -55,7 +54,7 @@ const ResultPage = () => {
   return (
     <div className='flex items-center justify-center min-h-[80vh] bg-white text-black'>
       <div className='bg-slate-50 rounded-md p-10 max-w-4xl w-full'>
-        <h1 className='text-xl font-bold'>Tic-Tac-Toe - Your Result: </h1>
+        <h1 className='sr-only'>Tic-Tac-Toe - Your Result: </h1>
         <div className='mt-8 text-center'>
           {/* Final Winner */}
           <div className='mb-8'>

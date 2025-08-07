@@ -1,6 +1,5 @@
 'use client';
 
-import PageTitle from '@/components/ui/PageTitle';
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import { clearLeaderboard, loadLeaderboardFromStorage } from '@/lib/redux/features/game/gameSlice';
 import { useRouter } from 'next/navigation';
@@ -85,7 +84,7 @@ const LeaderboardPage = () => {
   return (
     <div className='flex items-center justify-center min-h-[80vh] bg-white text-black'>
       <div className='bg-slate-50 rounded-md p-10 max-w-6xl w-full'>
-        <h1 className='text-xl font-bold'>Tic-Tac-Toe Leaderboard: </h1>
+        <h1 className='sr-only'>Tic-Tac-Toe Leaderboard: </h1>
 
         <div className='mt-8'>
           {playerStats.length === 0 ? (
@@ -190,7 +189,7 @@ const LeaderboardPage = () => {
           )}
 
           {/* Action Buttons */}
-          <div className='grid sm:grid-cols-2 gap-4 mt-8 max-w-lg mx-auto'>
+          <div className='grid md:grid-cols-3 gap-4 mt-8 max-w-3xl mx-auto'>
             <button
               onClick={() => router.push('/assignment-1/player-setup')}
               className='bg-blue-500 text-white px-6 py-3 rounded-lg text-lg cursor-pointer'
