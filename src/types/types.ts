@@ -102,3 +102,11 @@ export interface LinkButtonProps {
   className?: string;
   onClick?: () => void;
 }
+
+export interface PlayerStatisticsProps {
+  name: string;
+  totalScore: number;
+  wins: number;
+  gamesPlayed: number;
+  roundWins: number;
+}

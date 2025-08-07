@@ -2,15 +2,13 @@
 
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import { clearLeaderboard, loadLeaderboardFromStorage } from '@/lib/redux/features/game/gameSlice';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { PlayerStats } from '@/types/types';
 import LinkButton from '@/components/ui/LinkButton';
 import Button from '@/components/ui/Button';
+import StatisticsTable from '@/components/features/tic-tac-toe/organisms/StatisticsTable';
 
 const LeaderboardPage = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { leaderboard } = useAppSelector((state) => state.game);
   const [playerStats, setPlayerStats] = useState<PlayerStats[]>([]);
@@ -95,75 +93,7 @@ const LeaderboardPage = () => {
             <>
               {/* Player Statistics Table */}
               <div className='overflow-x-auto mb-6'>
-                <table className='w-full bg-white rounded-lg shadow-md'>
-                  <thead className='bg-gray-50'>
-                    <tr>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Rank
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Player Name
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Total Score
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Games Won
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Games Played
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Round Wins
-                      </th>
-                      <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                        Win Rate
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className='bg-white divide-y divide-gray-200'>
-                    {playerStats.map((player, index) => (
-                      <tr
-                        key={player.name}
-                        className={index === 0 ? 'bg-yellow-50' : ''}
-                      >
-                        <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                          {index === 0
-                            ? '🥇'
-                            : index === 1
-                            ? '🥈'
-                            : index === 2
-                            ? '🥉'
-                            : index + 1}
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                          {player.name}
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          <span className='font-bold text-green-600'>
-                            {player.totalScore}
-                          </span>
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          {player.wins}
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          {player.gamesPlayed}
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          {player.roundWins}
-                        </td>
-                        <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                          {player.gamesPlayed > 0
-                            ? `${Math.round(
-                                (player.wins / player.gamesPlayed) * 100
-                              )}%`
-                            : '0%'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <StatisticsTable playerStats={playerStats} />
               </div>
 
               {/* Recent Games */}
