@@ -1,33 +1,53 @@
 'use client';
 
 import Image from 'next/image';
-import React, { FC } from 'react';
-
-interface ProductProps {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  images: string[];
-  category: {
-    id: number;
-    name: string;
-    image: string;
-    slug: string;
-  };
-}
+import { useRouter } from 'next/navigation';
+import React, { FC, useState } from 'react';
+import { deleteProduct } from '@/apis/services/products';
+import { ProductProps } from '@/types/types';
+import Link from 'next/link';
 
 const productHeaders = ['SN', 'Image', 'Title', 'Category', 'Price', 'Actions'];
 
-const ProductList: FC<{ products: ProductProps[] }> = ({ products }) => {
+const ProductList: FC<{ products: ProductProps[]; onProductDeleted?: () => void }> = ({ 
+  products, 
+  onProductDeleted 
+}) => {
+  const router = useRouter();
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
   const handleEdit = (productId: number) => {
-    // TODO: Implement edit functionality
-    console.log('Edit product:', productId);
+    router.push(`/assignment-2/edit?id=${productId}`);
   };
 
-  const handleDelete = (productId: number) => {
-    // TODO: Implement delete functionality
-    console.log('Delete product:', productId);
+  const handleDelete = async (productId: number) => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${product.title}"? This action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setDeletingId(productId);
+    try {
+      await deleteProduct(productId);
+      alert('Product deleted successfully!');
+      
+      // Refresh the products list
+      if (onProductDeleted) {
+        onProductDeleted();
+      } else {
+        // Fallback: refresh the page
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('Failed to delete product. Please try again.');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   return (
@@ -71,7 +91,7 @@ const ProductList: FC<{ products: ProductProps[] }> = ({ products }) => {
                   <td className='py-4 px-4'>
                     <div className='max-w-xs'>
                       <p className='text-sm font-medium text-gray-900 truncate'>
-                        {product.title}
+                        <Link className='hover:text-blue-600' href={`/assignment-2/product/${product.id}`}>{product.title}</Link>
                       </p>
                       <p className='text-sm text-gray-500 line-clamp-2 mt-1'>
                         {product.description}
@@ -91,16 +111,18 @@ const ProductList: FC<{ products: ProductProps[] }> = ({ products }) => {
                       <button
                         onClick={() => handleEdit(product.id)}
                         type='button'
-                        className='inline-flex items-center px-3 py-1.5 text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer'
+                        className='inline-flex items-center px-3 py-1.5 text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
+                        disabled={deletingId === product.id}
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(product.id)}
                         type='button'
-                        className='inline-flex items-center px-3 py-1.5 text-xs font-medium rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 hover:cursor-pointer'
+                        className='inline-flex items-center px-3 py-1.5 text-xs font-medium rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
+                        disabled={deletingId === product.id}
                       >
-                        Delete
+                        {deletingId === product.id ? 'Deleting...' : 'Delete'}
                       </button>
                     </div>
                   </td>

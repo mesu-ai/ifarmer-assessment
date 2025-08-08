@@ -110,3 +110,58 @@ export interface PlayerStatisticsProps {
   gamesPlayed: number;
   roundWins: number;
 }
+export interface Category {
+  id: number;
+  name: string;
+  image: string;
+  slug: string;
+}
+
+export interface ProductProps {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: Category;
+  creationAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateProductProps {
+  title: string;
+  price: number;
+  description: string;
+  categoryId: number;
+  images: string[];
+}
+
+export interface ProductFormData {
+  title: string;
+  price: string;
+  description: string;
+  categoryId: string;
+  images: string[];
+}
+
+export interface FormErrors {
+  title?: string;
+  price?: string;
+  description?: string;
+  categoryId?: string;
+  images?: string;
+}
+
+export interface ProductFormProps {
+  initialData?: {
+    id?: number;
+    title: string;
+    price: number;
+    description: string;
+    category: { id: number; name: string };
+    images: string[];
+  };
+  categories: Category[];
+  onSubmit: (data: CreateProductProps) => Promise<void>;
+  isSubmitting: boolean;
+}
