@@ -40,6 +40,7 @@ const AddProductPage = () => {
       
       router.push('/assignment-2');
     } catch (error) {
+      console.error('Error creating product:', error);
       alert('Failed to create product. Please try again.');
     } finally {
       setIsSubmitting(false);

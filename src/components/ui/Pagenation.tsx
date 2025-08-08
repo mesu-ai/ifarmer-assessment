@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled}
       onClick={action}
       type="button"
-      className={`h-7 sm:h-8 w-8  md:h-11 md:w-11 text-sm sm:text-base md:text-lg font-medium rounded-md flex justify-center items-center hover:bg-[#1181b2]/10 disabled:bg-slate-300 disabled:text-white  hover:text-cyan-500 hover:cursor-pointer ${isActive ? 'bg-blue-500 text-white' : 'bg-white'} ${className}`}
+      className={`h-7 w-7 md:h-10 md:w-10 text-sm sm:text-base font-medium rounded-md flex justify-center items-center hover:bg-[#1181b2]/10 disabled:bg-slate-300 disabled:text-white  hover:text-cyan-500 hover:cursor-pointer ${isActive ? 'bg-blue-500 text-white' : 'bg-white'} ${className}`}
     >
       {children}
     </button>
@@ -41,7 +41,7 @@ const Button: FC<ButtonProps> = ({
 
 const Ellipsis = () => {
   return (
-    <span className="h-8 w-8 md:h-11 md:w-11 text-lg font-medium flex justify-center items-center">
+    <span className="h-7 w-7 md:h-10 md:w-10 text-lg font-medium flex justify-center items-center">
       ...
     </span>
   );
@@ -73,7 +73,6 @@ const Pagination: FC<PaginationProps> = ({
         }
       }}
       isActive={currentPage === value}
-      // disabled={currentPage === value}
       className="mx-1.5 sm:mx-2"
     >
       {value}

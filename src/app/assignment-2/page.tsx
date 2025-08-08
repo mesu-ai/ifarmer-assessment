@@ -1,6 +1,6 @@
 import { getCategories } from '@/apis/services/categories';
 import { getProducts } from '@/apis/services/products';
-import SearchBar from '@/components/features/products/molecules/SearchBar';
+import ProductSearchBar from '@/components/features/products/molecules/ProductSearchBar';
 import CategoryList from '@/components/features/products/organisms/CategoryList';
 import ProductList from '@/components/features/products/organisms/ProductList';
 import Pagination from '@/components/ui/Pagenation';
@@ -28,7 +28,7 @@ const page = async ({
     <div className='flex flex-col lg:flex-row gap-6'>
       <div className='flex-1 space-y-6 overflow-x-auto'>
         <div className='flex justify-between items-center'>
-          <SearchBar />
+          <ProductSearchBar />
 
           <Link
             href='/assignment-2/add'
@@ -38,7 +38,6 @@ const page = async ({
           </Link>
         </div>
 
-        <div>
           <div className='bg-slate-100 p-4 rounded-md shadow-sm'>
             <div className='flex justify-between items-center mb-4 border-b pb-2'>
               <h1 className='text-xl font-semibold'>Products</h1>
@@ -49,15 +48,14 @@ const page = async ({
             <ProductList products={products} />
           </div>
 
-          <div className='mt-8 col-span-full content-center'>
+          <div className='col-span-full content-center'>
             <Pagination currentPage={Number(currentPage)} />
           </div>
-        </div>
       </div>
 
       {/* sidebar */}
       <div className='w-full lg:w-60 flex-none'>
-        <div className=' bg-slate-100 p-4 rounded-md shadow-sm'>
+        <div className='sticky top-6 bg-slate-100 p-4 rounded-md shadow-sm'>
           <div className='mb-4 border-b pb-2'>
             <h1 className='text-xl font-semibold'>Category</h1>
           </div>
