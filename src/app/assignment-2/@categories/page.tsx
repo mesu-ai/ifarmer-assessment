@@ -5,10 +5,11 @@ import React from 'react';
 
 const page = async () => {
   const categories = await getCategories();
-  console.log({ categories });
   return (
-    <div>
-      <h1 className='text-2xl font-bold mb-4'>Categories</h1>
+    <div className=' bg-slate-100 p-4 rounded-md shadow-sm'>
+      <div className='mb-4 border-b pb-2'>
+        <h1 className='text-xl font-semibold'>Category</h1>
+      </div>
       <CategoryList categories={categories} />
     </div>
   );
