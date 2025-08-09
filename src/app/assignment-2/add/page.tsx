@@ -4,12 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createProduct } from '@/apis/services/products';
 import { getCategories } from '@/apis/services/categories';
-import { Category, CreateProductProps } from '@/types/types';
+import { CategoryProps, CreateProductProps } from '@/types/types';
 import ProductForm from '@/components/features/products/organisms/ProductForm';
 
 const AddProductPage = () => {
   const router = useRouter();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,7 +32,6 @@ const AddProductPage = () => {
     setIsSubmitting(true);
     try {
       const res = await createProduct(data);
-      console.log('Product created successfully:', res);
       if(res.status !== 201) {
         throw new Error('Failed to create product');
       }

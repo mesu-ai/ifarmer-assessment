@@ -110,11 +110,12 @@ export interface PlayerStatisticsProps {
   gamesPlayed: number;
   roundWins: number;
 }
-export interface Category {
+
+export interface CategoryProps {
   id: number;
   name: string;
-  image: string;
   slug: string;
+  image: string;
 }
 
 export interface ProductProps {
@@ -123,7 +124,7 @@ export interface ProductProps {
   price: number;
   description: string;
   images: string[];
-  category: Category;
+  category: CategoryProps;
   creationAt?: string;
   updatedAt?: string;
 }
@@ -161,7 +162,7 @@ export interface ProductFormProps {
     category: { id: number; name: string };
     images: string[];
   };
-  categories: Category[];
+  categories: CategoryProps[];
   onSubmit: (data: CreateProductProps) => Promise<void>;
   isSubmitting: boolean;
 }

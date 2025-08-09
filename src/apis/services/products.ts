@@ -43,7 +43,6 @@ export const createProduct = async (productData: CreateProductProps) => {
   try {
     const res = await axios.post(`${baseURL}/products`, productData);
     if (res.status !== 201) throw new Error('Error creating product');
-    console.log('Product created successfully:', res);
     return res;
   } catch (error) {
     console.log(error);
@@ -55,7 +54,7 @@ export const updateProduct = async (id: number | string, productData: UpdateProd
   try {
     const res = await axios.put(`${baseURL}/products/${id}`, productData);
     if (res.status !== 200) throw new Error('Error updating product');
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
     throw error;

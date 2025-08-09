@@ -5,14 +5,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { updateProduct, getProductById } from '@/apis/services/products';
 import { getCategories } from '@/apis/services/categories';
 import ProductForm from '@/components/features/products/organisms/ProductForm';
-import { Category, CreateProductProps, ProductProps } from '@/types/types';
+import { CategoryProps, CreateProductProps, ProductProps } from '@/types/types';
+import ErrorDisplay from '@/components/features/products/atoms/ErrorDisplay';
 
 const EditProductPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [product, setProduct] = useState<ProductProps | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,10 +51,10 @@ const EditProductPage = () => {
     
     setIsSubmitting(true);
     try {
-      const updatedProduct = await updateProduct(productId, data);
-      console.log('Product updated successfully:', updatedProduct);
-      
-      // Show success message (you can replace this with a toast notification)
+      const res = await updateProduct(productId, data);
+      if(res.status !== 200) {
+        throw new Error('Failed to update product');
+      }
       alert('Product updated successfully!');
       
       // Redirect to products list
@@ -76,26 +77,11 @@ const EditProductPage = () => {
 
   if (error || !product) {
     return (
-      <div className='min-h-screen flex items-center justify-center'>
-        <div className='bg-red-50 border border-red-200 rounded-md p-6 max-w-md'>
-          <h2 className='text-red-800 font-semibold mb-2'>Error</h2>
-          <p className='text-red-600 mb-4'>{error || 'Product not found'}</p>
-          <div className='space-x-2'>
-            <button
-              onClick={() => router.push('/assignment-2')}
-              className='px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors'
-            >
-              Back to Products
-            </button>
-            <button
-              onClick={() => window.location.reload()}
-              className='px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors'
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </div>
+      <ErrorDisplay
+        error={error || 'Product not found'}
+        onBack={() => router.push('/assignment-2')}
+        onRetry={() => window.location.reload()}
+      />
     );
   }
 
