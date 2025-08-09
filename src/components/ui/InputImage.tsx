@@ -1,19 +1,5 @@
+import { InputImageProps } from '@/types/types';
 import React from 'react';
-
-interface InputImageProps {
-  label: string;
-  images: string[];
-  onImageChange: (index: number, value: string) => void;
-  onImageRemove: (index: number) => void;
-  onImageAdd: (url: string) => void;
-  imageInput: string;
-  onImageInputChange: (value: string) => void;
-  error?: string;
-  maxImages?: number;
-  disabled?: boolean;
-  required?: boolean;
-  className?: string;
-}
 
 const InputImage: React.FC<InputImageProps> = ({
   label,
@@ -51,7 +37,7 @@ const InputImage: React.FC<InputImageProps> = ({
         {validImages.map((image, index) => (
           <div
             key={index}
-            className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg bg-gray-50"
+            className="flex flex-wrap items-center gap-3 p-3 border border-gray-200 rounded-lg bg-gray-50"
           >
             <span className="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm font-medium">
               {index + 1}
@@ -67,7 +53,7 @@ const InputImage: React.FC<InputImageProps> = ({
             <button
               type="button"
               onClick={() => onImageRemove(index)}
-              className="flex-shrink-0 px-3 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
+              className="ms-auto flex-shrink-0 px-3 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
               disabled={disabled}
             >
               Remove
@@ -77,7 +63,7 @@ const InputImage: React.FC<InputImageProps> = ({
 
         {/* Add New Image */}
         {validImages.length < maxImages && (
-          <div className="flex items-center gap-3 p-3 border-2 border-dashed border-gray-300 rounded-lg">
+          <div className="flex flex-wrap items-center gap-3 p-3 border-2 border-dashed border-gray-300 rounded-lg">
             <span className="flex-shrink-0 w-8 h-8 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center text-lg">
               +
             </span>
@@ -92,7 +78,7 @@ const InputImage: React.FC<InputImageProps> = ({
             <button
               type="button"
               onClick={handleAddImage}
-              className="flex-shrink-0 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="ms-auto flex-shrink-0 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={disabled || !imageInput.trim()}
             >
               Add

@@ -12,7 +12,7 @@ const CategoryList: FC<{ categories: CategoryProps[] }> = ({ categories }) => {
   };
 
   return (
-    <ul className='list-none capitalize h-[70vh] overflow-y-auto'>
+    <ul className='list-none capitalize h-[30vh] lg:h-[70vh] overflow-y-auto'>
       {categories.map((category) => (
         <li
           key={category.id}

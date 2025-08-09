@@ -6,12 +6,18 @@ import { createProduct } from '@/apis/services/products';
 import { getCategories } from '@/apis/services/categories';
 import { CategoryProps, CreateProductProps } from '@/types/types';
 import ProductForm from '@/components/features/products/organisms/ProductForm';
+import Alert from '@/components/ui/Alert';
 
 const AddProductPage = () => {
   const router = useRouter();
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState({
+    type: 'success' as 'success' | 'error',
+    message: ''
+  });
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -35,12 +41,23 @@ const AddProductPage = () => {
       if(res.status !== 201) {
         throw new Error('Failed to create product');
       }
-      alert('Product created successfully!');
+      setAlertConfig({
+        type: 'success',
+        message: 'Product created successfully!'
+      });
+      setShowAlert(true);
       
-      router.push('/assignment-2');
+      // Navigate after a delay to allow user to see the success message
+      setTimeout(() => {
+        router.push('/assignment-2');
+      }, 2000);
     } catch (error) {
       console.error('Error creating product:', error);
-      alert('Failed to create product. Please try again.');
+      setAlertConfig({
+        type: 'error',
+        message: 'Failed to create product. Please try again.'
+      });
+      setShowAlert(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -55,13 +72,25 @@ const AddProductPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <ProductForm
-        categories={categories}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
+    <>
+      <div className="min-h-screen bg-gray-50 py-8 px-4">
+        <ProductForm
+          categories={categories}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
+      </div>
+
+      {/* Alert Dialog */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        autoClose={alertConfig.type === 'success'}
+        autoCloseDelay={2000}
       />
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import { getCategories } from '@/apis/services/categories';
 import ProductForm from '@/components/features/products/organisms/ProductForm';
 import { CategoryProps, CreateProductProps, ProductProps } from '@/types/types';
 import ErrorDisplay from '@/components/features/products/atoms/ErrorDisplay';
+import Alert from '@/components/ui/Alert';
 
 const EditProductPage = () => {
   const router = useRouter();
@@ -18,6 +19,11 @@ const EditProductPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertConfig, setAlertConfig] = useState({
+    type: 'success' as 'success' | 'error',
+    message: ''
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,13 +61,23 @@ const EditProductPage = () => {
       if(res.status !== 200) {
         throw new Error('Failed to update product');
       }
-      alert('Product updated successfully!');
+      setAlertConfig({
+        type: 'success',
+        message: 'Product updated successfully!'
+      });
+      setShowAlert(true);
       
-      // Redirect to products list
-      router.push('/assignment-2');
+      // Navigate after a delay to allow user to see the success message
+      setTimeout(() => {
+        router.push('/assignment-2');
+      }, 2000);
     } catch (error) {
       console.error('Error updating product:', error);
-      alert('Failed to update product. Please try again.');
+      setAlertConfig({
+        type: 'error',
+        message: 'Failed to update product. Please try again.'
+      });
+      setShowAlert(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -86,14 +102,26 @@ const EditProductPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-       <ProductForm
-        initialData={product}
-        categories={categories}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
+    <>
+      <div className="min-h-screen bg-gray-50 py-8 px-4">
+         <ProductForm
+          initialData={product}
+          categories={categories}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
+      </div>
+
+      {/* Alert Dialog */}
+      <Alert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        autoClose={alertConfig.type === 'success'}
+        autoCloseDelay={2000}
       />
-    </div>
+    </>
   );
 };
 

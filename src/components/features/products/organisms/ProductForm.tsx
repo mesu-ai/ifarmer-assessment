@@ -131,9 +131,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const isEditMode = !!initialData;
 
   return (
-    <div className='min-h-screen bg-gray-50 py-8'>
-      <div className='max-w-3xl mx-auto px-4'>
-        <div className='mb-8'>
+    <div className='min-h-screen bg-gray-50'>
+      <div className='w-full mx-auto p-4'>
+        <div className='mb-5'>
           <h1 className='text-xl font-bold text-gray-900'>
             {isEditMode ? 'Edit Product' : 'Add New Product'}
           </h1>

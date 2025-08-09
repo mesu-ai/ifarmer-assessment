@@ -1,22 +1,5 @@
+import { InputSelectProps } from '@/types/types';
 import React from 'react';
-
-interface Option {
-  value: string | number;
-  label: string;
-}
-
-interface InputSelectProps {
-  name: string;
-  label: string;
-  value: string | number;
-  options: Option[];
-  onChange: (value: string) => void;
-  error?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  required?: boolean;
-  className?: string;
-}
 
 const InputSelect: React.FC<InputSelectProps> = ({
   name,

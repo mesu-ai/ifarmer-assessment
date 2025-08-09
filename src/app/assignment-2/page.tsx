@@ -26,7 +26,7 @@ const page = async ({
 
   return (
     <div className='flex flex-col lg:flex-row gap-6'>
-      <div className='flex-1 space-y-6 overflow-x-auto'>
+      <div className='order-2 lg:order-1 flex-1 space-y-6 overflow-x-auto'>
         <div className='flex justify-between items-center'>
           <ProductSearchBar />
 
@@ -54,7 +54,7 @@ const page = async ({
       </div>
 
       {/* sidebar */}
-      <div className='w-full lg:w-60 flex-none'>
+      <div className='order-1 lg:order-2 w-full lg:w-60 flex-none'>
         <div className='sticky top-6 bg-slate-100 p-4 rounded-md shadow-sm'>
           <div className='mb-4 border-b pb-2'>
             <h1 className='text-xl font-semibold'>Category</h1>

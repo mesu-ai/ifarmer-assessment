@@ -166,3 +166,72 @@ export interface ProductFormProps {
   onSubmit: (data: CreateProductProps) => Promise<void>;
   isSubmitting: boolean;
 }
+
+export interface InputImageProps {
+  label: string;
+  images: string[];
+  onImageChange: (index: number, value: string) => void;
+  onImageRemove: (index: number) => void;
+  onImageAdd: (url: string) => void;
+  imageInput: string;
+  onImageInputChange: (value: string) => void;
+  error?: string;
+  maxImages?: number;
+  disabled?: boolean;
+  required?: boolean;
+  className?: string;
+}
+
+export interface OptionProps {
+  value: string | number;
+  label: string;
+}
+
+export interface InputSelectProps {
+  name: string;
+  label: string;
+  value: string | number;
+  options: OptionProps[];
+  onChange: (value: string) => void;
+  error?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  className?: string;
+}
+
+export interface InputTextareaProps {
+  name: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  className?: string;
+  rows?: number;
+  maxLength?: number;
+  charCount?: string;
+}
+
+export interface AlertProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  message: string;
+  type?: 'success' | 'error' | 'warning' | 'info';
+  autoClose?: boolean;
+  autoCloseDelay?: number;
+}
+
+export interface ConfirmDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title?: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  type?: 'danger' | 'warning' | 'info';
+}

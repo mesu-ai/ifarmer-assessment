@@ -1,19 +1,5 @@
+import { InputTextareaProps } from '@/types/types';
 import React from 'react';
-
-interface InputTextareaProps {
-  name: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  required?: boolean;
-  className?: string;
-  rows?: number;
-  maxLength?: number;
-  charCount?: string;
-}
 
 const InputTextarea: React.FC<InputTextareaProps> = ({
   name,
